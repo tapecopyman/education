@@ -1,6 +1,8 @@
 import pygame
 import sys
 import random
+import os
+import winsound
 
 #https://chatgpt.com/share/66f7a2ee-7100-8006-b99e-8f0cfb2ec2f5
 # pygame을 사용하여 "다람쥐 찾기"라는 게임을 만들어 보세요.
@@ -45,6 +47,11 @@ def load_image(name):
 KOALA_IMG = load_image('koala.png')
 STRAWBERRY_IMG = load_image('strawberry.png')
 SQUIRREL_IMG = load_image('squirrel.png')
+
+# Load sound
+sound_file = os.path.join('sounds', 'beep.wav')
+print(sound_file)
+BEEP_SOUND = pygame.mixer.Sound(sound_file)
 
 # Game Clock
 clock = pygame.time.Clock()
@@ -155,6 +162,7 @@ def main():
 
             # Check for collisions with strawberries
             if pygame.sprite.spritecollideany(player, strawberries):
+                BEEP_SOUND.play()  # 삐 소리 재생
                 game_state = STATE_LOSE
                 win_lose_time = pygame.time.get_ticks()
 
